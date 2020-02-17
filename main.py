@@ -88,7 +88,8 @@ def RSSI_to_dist(rssi, measured_power=-60, n=1.7):
             1.6 to 1.8 for indoors when there is line of sight to the router.
     :return: squared euclidean distance to that iBeacon
     """
-    return pow(10, 2*(measured_power - rssi)/(10*n))
+    # return pow(10, 2*(measured_power - rssi)/(10*n))
+    return (pow(10, (measured_power - rssi) / (10 * n)) * 3.2808)**2
 
 valid_dist = [RSSI_to_dist(x) for x in valid_RSSI]
 
@@ -144,9 +145,20 @@ def lm():
     return x
 
 
-# res_1 = least_squares(g, np.random.rand(2))
+# res_1 = least_squares(g, np.random.rand(2)).x
 res_2 = lm()
 print(res_2)
+
+
+def find_index(x):
+    i = 1
+    print("x: {}".format(x))
+    while int(x//(i*10)) != 1:
+        print("res: {}".format(int(x//(i*10))))
+        print(i)
+        i += 1
+    return i-1
+
 
 def get_cell(coords: np.ndarray) -> str:
     """
@@ -157,13 +169,19 @@ def get_cell(coords: np.ndarray) -> str:
     rows = [str(i).zfill(2) for i in range(1, 19)]
     row_coord = coords[0]
     col_coord = coords[1]
+    return letters[find_index(col_coord)]+rows[find_index(row_coord)]
+
+print(get_cell(res_2))
+print(res_2//60)
 
 
-# def find_index(x):
 
 
 
-print(21.22//10)
+
+
+
+
 
 
 
