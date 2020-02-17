@@ -151,13 +151,7 @@ print(res_2)
 
 
 def find_index(x):
-    i = 1
-    print("x: {}".format(x))
-    while int(x//(i*10)) != 1:
-        print("res: {}".format(int(x//(i*10))))
-        print(i)
-        i += 1
-    return i-1
+    return int(x//10)
 
 
 def get_cell(coords: np.ndarray) -> str:
@@ -172,7 +166,7 @@ def get_cell(coords: np.ndarray) -> str:
     return letters[find_index(col_coord)]+rows[find_index(row_coord)]
 
 print(get_cell(res_2))
-print(res_2//60)
+
 
 
 
